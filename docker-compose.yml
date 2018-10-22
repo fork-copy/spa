@@ -1,0 +1,50 @@
+version: '2'
+services:
+
+  # PHP
+  app:
+      build:
+        context: ./
+        dockerfile: Dockerfile.php
+      working_dir: /var/www/spa
+      volumes:
+        - ./src:/var/www/spa
+        - $PWD/scripts:/scripts
+      environment:
+        - "DB_PORT=3306"
+        - "DB_HOST=database"
+
+  # NGINX
+  web:
+      build:
+        context: ./
+        dockerfile: Dockerfile.app
+      working_dir: /var/www/spa
+      volumes_from:
+        - app
+      ports:
+        - 80:80
+      links:
+        - cache:redis
+
+  # The Database
+  database:
+      image: mysql:5.6
+      volumes:
+        - dbdata:/var/lib/mysql
+      environment:
+        - "MYSQL_DATABASE=vuetest"
+        - "MYSQL_USER=nyi"
+        - "MYSQL_PASSWORD=root"
+        - "MYSQL_ROOT_PASSWORD=root"
+      ports:
+          - "33061:3306"
+
+  # REDIS
+  cache:
+    image: redis:3-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  dbdata:
