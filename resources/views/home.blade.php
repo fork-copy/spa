@@ -1,23 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <div class="container">
+        <div class="row text-align-left">
+            <a href="/vocabularies/create" class="btn btn-sm btn-primary">Add Vocabulary</a>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Hiragana</th>
+                    <th scope="col">English</th>
+                    <th scope="col">Option</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                @foreach($vocabularies as $vocabulary)
+                    <tr>
+                        <th scope="row">{{ $vocabulary->id }}</th>
+                        <td>{{ $vocabulary->hiragana }}</td>
+                        <td>{{ $vocabulary->meaning_in_english }}</td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td>
+                    </tr>
 
-                    You are logged in!
-                </div>
-            </div>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
 @endsection

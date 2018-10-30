@@ -20,8 +20,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "swing": "^3.1.3",
         "vue-router": "^3.0.1",
-        "vue-swing": "0.0.9"
+        "vue-tantan-stack": "^1.0.0"
     }
 }

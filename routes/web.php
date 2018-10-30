@@ -11,16 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'vocabularies', 'uses' => 'VocabularyController@show']);
 
 
-Route::get('vocabularies', function () {
+Route::get('getVocabularies', function () {
     return App\Vocabulary::latest()->get();
     //return App\Vocabulary::with('user')->latest()->get();
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'VocabularyController@index');
+Route::get('/vocabularies', ['as' => 'vocabularies', 'uses' => 'VocabularyController@index']);
+Route::get('/vocabularies/create', ['as' => 'vocabularies.create', 'uses' => 'VocabularyController@create']);
+Route::post('/vocabularies/store', ['as' => 'vocabularies.store', 'uses' => 'VocabularyController@store']);
