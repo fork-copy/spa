@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStatusesTable extends Migration
+class CreateVocabulariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('vocabularies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->text('body');
+            $table->string('furigana',255);
+            $table->string('hiragana',255);
+            $table->string('romaji',255);
+            $table->text('meaning_in_english');
+            $table->text('meaning_in_burmese');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('vocabularies');
     }
 }

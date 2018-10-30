@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('statuses', function () {
-    dd(env('DB_'));
-    return App\User::latest()->get();
+Route::get('vocabularies', function () {
+    return App\Vocabulary::latest()->get();
+    //return App\Vocabulary::with('user')->latest()->get();
 });
 
 Auth::routes();

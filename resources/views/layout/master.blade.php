@@ -29,7 +29,10 @@
                     </ul>
                 </div>
             </nav>
-            <router-view></router-view>
+
+            <div class="container">
+                <router-view></router-view>
+            </div>
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>

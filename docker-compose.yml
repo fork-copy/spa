@@ -8,8 +8,9 @@ services:
         dockerfile: Dockerfile.php
       working_dir: /var/www/spa
       volumes:
-        - ./src:/var/www/spa
+        - ./:/var/www/spa
         - $PWD/scripts:/scripts
+        - ./ssl:/etc/nginx/ssl
       environment:
         - "DB_PORT=3306"
         - "DB_HOST=database"
@@ -24,6 +25,7 @@ services:
         - app
       ports:
         - 80:80
+        - 443:443
       links:
         - cache:redis
 

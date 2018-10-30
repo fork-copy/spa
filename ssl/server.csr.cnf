@@ -1,0 +1,14 @@
+[req]
+default_bits = 1024
+prompt = no
+default_md = sha256
+distinguished_name = dn
+
+[dn]
+C=JP
+ST=Japan
+L=Tokyo
+O=Kurashicom
+OU=Random
+emailAddress=nyi@kurashicom.jp
+CN = spa.app
