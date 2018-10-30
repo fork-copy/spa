@@ -14,7 +14,7 @@ class VocabulariesTableSeeder extends Seeder
     public function run()
     {
         $now = Carbon\Carbon::now();
-        DB::table('staffs')->insert(
+        DB::table('vocabularies')->insert(
             [
                 'user_id' => 1,
                 'furigana' => '満足',
