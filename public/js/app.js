@@ -50425,15 +50425,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
-
-    // mounted () {
-    //     let that = this
-    //     setTimeout(function () {
-    //         console.log(that.cards);
-    //         var cards = that.cards;
-    //         that.cards = []
-    //     }, 2000)
-    // },
     created: function created() {
         var _this = this;
 
@@ -50458,9 +50449,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         prev: function prev() {
+            console.log("user click previous icon");
             this.$refs.stack.$emit('prev');
         },
         next: function next() {
+            console.log("user click next icon");
             this.$refs.stack.$emit('next');
         }
     }

@@ -22,14 +22,6 @@
                 }
             }
         },
-        // mounted () {
-        //     let that = this
-        //     setTimeout(function () {
-        //         console.log(that.cards);
-        //         var cards = that.cards;
-        //         that.cards = []
-        //     }, 2000)
-        // },
         created() {
             axios.get('/getVocabularies').then(({data}) => {
                 //this.cards = data;
@@ -49,9 +41,11 @@
         },
         methods: {
             prev() {
+                console.log("user click previous icon");
                 this.$refs.stack.$emit('prev')
             },
             next() {
+                console.log("user click next icon");
                 this.$refs.stack.$emit('next')
             }
         }
