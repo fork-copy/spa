@@ -5,6 +5,7 @@
         <div class="row text-align-left">
             <a href="/vocabularies/create" class="btn btn-sm btn-primary">Add Vocabulary</a>
         </div>
+        <br>
         <div class="row">
             <table class="table">
                 <thead>
@@ -12,7 +13,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Hiragana</th>
                     <th scope="col">English</th>
-                    <th scope="col">Option</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,7 +23,9 @@
                         <th scope="row">{{ $vocabulary->id }}</th>
                         <td>{{ $vocabulary->hiragana }}</td>
                         <td>{{ $vocabulary->meaning_in_english }}</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Edit</a> <a href="#" class="btn btn-sm btn-danger">Delete</a></td>
+                        <td>
+                            <a href="/vocabularies/edit/{{ $vocabulary->id }}" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
                     </tr>
 
                 @endforeach

@@ -49,13 +49,44 @@ class VocabularyController extends Controller
         }
         $vocabulary = new Vocabulary();
         $inputs = $request->all();
-        $vocabulary->user_id = Auth::user()->id;
+        $vocabulary->user_id    = Auth::user()->id;
+        $vocabulary->furigana   = $inputs['furigana'];
+        $vocabulary->hiragana   = $inputs['hiragana'];
+        $vocabulary->romaji     = $inputs['romaji'];
+        $vocabulary->meaning_in_english = $inputs['meaningInEnglish'];
+        $vocabulary->meaning_in_burmese = $inputs['meaningInBurmese'];
+        $vocabulary->save();
+        return redirect(route('vocabularies'));
+    }
+
+    public function edit($id)
+    {
+        $vocabulary = Vocabulary::find($id);
+        return view('vocabularies.edit', compact('vocabulary'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'furigana' => 'required',
+            'hiragana' => 'required',
+            'romaji' => 'required',
+        ]);
+        $inputs = $request->all();
+
+        $vocabulary = Vocabulary::find($id);
         $vocabulary->furigana = $inputs['furigana'];
         $vocabulary->hiragana = $inputs['hiragana'];
         $vocabulary->romaji = $inputs['romaji'];
         $vocabulary->meaning_in_english = $inputs['meaningInEnglish'];
         $vocabulary->meaning_in_burmese = $inputs['meaningInBurmese'];
         $vocabulary->save();
-        return redirect(route('vocabularies'));
+
+        return redirect('/vocabularies')->with('success', 'Vocabularies has been updated');
+    }
+
+    public function destroy($id)
+    {
+
     }
 }

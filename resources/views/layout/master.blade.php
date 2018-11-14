@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>One Page App</title>
+        <title>Commuter Card</title>
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="/css/app.css">
     </head>
     <body>
         <div id="app">
             <nav class="navbar navbar-expand-lg navbar-light bg-blue-darker">
-                <a class="navbar-brand" href="#">One Page App</a>
+                <a class="navbar-brand" href="#">Commuter Card</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
