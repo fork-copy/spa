@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Vocabulary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +10,14 @@ use Illuminate\Support\Facades\Validator;
 
 class VocabularyController extends Controller
 {
+    protected $rules = [
+        'furigana'           => 'required',
+        'hiragana'           => 'required',
+        'romaji'             => 'required',
+        'meaningInEnglish' => 'required',
+        'meaningInBurmese' => 'required'
+    ];
+
     /**
      * Create a new controller instance.
      *
@@ -21,7 +30,7 @@ class VocabularyController extends Controller
 
     public function index()
     {
-        $vocabularies = Vocabulary::with('user')->latest()->get();
+        $vocabularies = Vocabulary::all();
         return view('home', [
             'vocabularies' => $vocabularies
         ]);
@@ -29,7 +38,8 @@ class VocabularyController extends Controller
 
     public function create()
     {
-        return view('vocabularies.create');
+        $categories = Category::all();
+        return view('vocabularies.create', compact('categories'));
     }
 
     public function show()
@@ -39,20 +49,16 @@ class VocabularyController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'furigana' => 'required',
-            'hiragana' => 'required',
-            'romaji' => 'required',
-        ]);
+        $validator = Validator::make($request->all(), $this->rules);
         if ($validator->fails()) {
             return redirect(route('vocabularies.create'))->withErrors($validator)->withInput();
         }
-        $vocabulary = new Vocabulary();
-        $inputs = $request->all();
-        $vocabulary->user_id    = Auth::user()->id;
-        $vocabulary->furigana   = $inputs['furigana'];
-        $vocabulary->hiragana   = $inputs['hiragana'];
-        $vocabulary->romaji     = $inputs['romaji'];
+        $vocabulary                     = new Vocabulary();
+        $inputs                         = $request->all();
+        $vocabulary->category_id        = $inputs['category'];
+        $vocabulary->furigana           = $inputs['furigana'];
+        $vocabulary->hiragana           = $inputs['hiragana'];
+        $vocabulary->romaji             = $inputs['romaji'];
         $vocabulary->meaning_in_english = $inputs['meaningInEnglish'];
         $vocabulary->meaning_in_burmese = $inputs['meaningInBurmese'];
         $vocabulary->save();
@@ -62,22 +68,24 @@ class VocabularyController extends Controller
     public function edit($id)
     {
         $vocabulary = Vocabulary::find($id);
-        return view('vocabularies.edit', compact('vocabulary'));
+        $categories = Category::all();
+        return view('vocabularies.edit', compact('vocabulary', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'furigana' => 'required',
-            'hiragana' => 'required',
-            'romaji' => 'required',
-        ]);
         $inputs = $request->all();
+        $validator = Validator::make($inputs, $this->rules);
 
-        $vocabulary = Vocabulary::find($id);
-        $vocabulary->furigana = $inputs['furigana'];
-        $vocabulary->hiragana = $inputs['hiragana'];
-        $vocabulary->romaji = $inputs['romaji'];
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $vocabulary                     = Vocabulary::find($id);
+        $vocabulary->category_id        = $inputs['category'];
+        $vocabulary->furigana           = $inputs['furigana'];
+        $vocabulary->hiragana           = $inputs['hiragana'];
+        $vocabulary->romaji             = $inputs['romaji'];
         $vocabulary->meaning_in_english = $inputs['meaningInEnglish'];
         $vocabulary->meaning_in_burmese = $inputs['meaningInBurmese'];
         $vocabulary->save();

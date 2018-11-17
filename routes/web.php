@@ -16,7 +16,6 @@ Route::get('/', ['as' => 'vocabularies', 'uses' => 'VocabularyController@show'])
 
 Route::get('getVocabularies', function () {
     return App\Vocabulary::latest()->get();
-    //return App\Vocabulary::with('user')->latest()->get();
 });
 
 Auth::routes();
@@ -28,3 +27,5 @@ Route::post('/vocabularies/store', ['as' => 'vocabularies.store', 'uses' => 'Voc
 Route::get('/vocabularies/edit/{id}', ['as' => 'vocabularies.edit', 'uses' => 'VocabularyController@edit']);
 Route::post('/vocabularies/update/{id}', ['as' => 'vocabularies.update', 'uses' => 'VocabularyController@update']);
 Route::delete('/vocabularies/destroy/{id}', ['as' => 'vocabularies.destroy', 'uses' => 'VocabularyController@destroy']);
+
+Route::resource('category','CategoryController');

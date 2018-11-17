@@ -9,6 +9,14 @@
                 <form action="{{ route('vocabularies.store') }}" method="POST">
                     @csrf
                         <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control" id="category" name="category">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="furigana"></label>
                             <input type="text" class="form-control @if($errors->first('furigana')) is-invalid @endif" name="furigana" id="furigana" placeholder="Furigana">
                         </div>
@@ -22,11 +30,11 @@
                         </div>
                         <div class="form-group">
                             <label for="meaningInEnglish"></label>
-                            <textarea class="form-control" name="meaningInEnglish" id="meaningInEnglish" placeholder="In English"></textarea>
+                            <textarea class="form-control @if($errors->first('meaningInEnglish')) is-invalid @endif" name="meaningInEnglish" id="meaningInEnglish" placeholder="In English"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="meaningInBurmese"></label>
-                            <textarea class="form-control" name="meaningInBurmese" id="meaningInBurmese" placeholder="In Burmese"></textarea>
+                            <textarea class="form-control @if($errors->first('meaningInBurmese')) is-invalid @endif" name="meaningInBurmese" id="meaningInBurmese" placeholder="In Burmese"></textarea>
                         </div>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>

@@ -24,7 +24,6 @@
         },
         created() {
             axios.get('/getVocabularies').then(({data}) => {
-                //this.cards = data;
                 var cardLength = data.length;
                 var myCard = [];
                 for (var i = 0; i < cardLength; i++) {
@@ -67,11 +66,10 @@
         position: relative;
         width: 200px;
         text-align: center;
-        display: flex; /*Flex布局*/
+        display: flex;
         display: -webkit-flex; /* Safari */
         justify-content: space-around;
         margin: 0 auto;
-        margin-top: 30px
     }
 
     .controls .button {
