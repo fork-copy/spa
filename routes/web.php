@@ -28,7 +28,3 @@ Route::post('/vocabularies/store', ['as' => 'vocabularies.store', 'uses' => 'Voc
 Route::get('/vocabularies/edit/{id}', ['as' => 'vocabularies.edit', 'uses' => 'VocabularyController@edit']);
 Route::post('/vocabularies/update/{id}', ['as' => 'vocabularies.update', 'uses' => 'VocabularyController@update']);
 Route::delete('/vocabularies/destroy/{id}', ['as' => 'vocabularies.destroy', 'uses' => 'VocabularyController@destroy']);
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-

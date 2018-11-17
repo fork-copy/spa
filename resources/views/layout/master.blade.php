@@ -1,55 +1,53 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>Commuter Card</title>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="/css/app.css">
+    </head>
+    <body>
+        <div id="app">
+            <nav class="navbar navbar-expand-lg navbar-light bg-blue-darker">
+                <a class="navbar-brand" href="#">Commuter Card</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
-    <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-</head>
-<body class="bg-blue-lightest h-screen antialiased">
-<div id="app">
-    <nav class="bg-white h-12 shadow mb-8 px-6 md:px-0">
-        <div class="container mx-auto h-full">
-            <div class="flex items-center justify-center h-12">
-                <div class="mr-6">
-                    <a href="{{ url('/') }}" class="text-lg font-hairline text-teal-darker no-underline hover:underline">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
+                    </ul>
                 </div>
-                <div class="flex-1 text-right">
-                    @guest
-                        <a class="no-underline hover:underline text-teal-darker pr-3 text-sm" href="{{ url('/login') }}">{{ __('Login') }}</a>
-                        <a class="no-underline hover:underline text-teal-darker text-sm" href="{{ url('/register') }}">{{ __('Register') }}</a>
-                    @else
-                        <span class="text-teal-darker text-sm pr-4">{{ Auth::user()->name }}</span>
+            </nav>
 
-                        <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline text-teal-darker text-sm"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                            {{ csrf_field() }}
-                        </form>
-                    @endguest
-                </div>
+            <div class="container">
+                <router-view></router-view>
             </div>
         </div>
-    </nav>
-
-    @yield('content')
-</div>
-
-<div class="container">
-    <router-view></router-view>
-</div>
-
-<!-- Scripts -->
-<script src="{{ mix('js/app.js') }}"></script>
-</body>
+        <script src="{{ mix('js/app.js') }}"></script>
+    </body>
 </html>
