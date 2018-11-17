@@ -10,46 +10,39 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-light bg-blue-darker">
-        <a class="navbar-brand" href="#">Commuter Card</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="/vocabularies">{{ __('Vocabulary') }}</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+    <nav class="bg-white h-12 shadow mb-8 px-6 md:px-0">
+        <div class="container mx-auto h-full">
+            <div class="flex items-center justify-center h-12">
+                <div class="mr-6">
+                    <a href="{{ url('/') }}" class="text-lg font-hairline text-teal-darker no-underline hover:underline">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                </div>
+                <div class="flex-1 text-right">
+                    @guest
+                        <a class="no-underline hover:underline text-teal-darker pr-3 text-sm" href="{{ url('/login') }}">{{ __('Login') }}</a>
+                        <a class="no-underline hover:underline text-teal-darker text-sm" href="{{ url('/register') }}">{{ __('Register') }}</a>
+                    @else
+                        <span class="text-teal-darker text-sm pr-4"><a class="no-underline" href="/vocabularies">{{ __('Vocabulary') }}</a>
+</span>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endif
-            </ul>
+                        <a href="{{ route('logout') }}"
+                           class="no-underline hover:underline text-teal-darker text-sm"
+                           onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                            {{ csrf_field() }}
+                        </form>
+                    @endguest
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <router-view></router-view>
-    </div>
+
+        <div class="container mx-auto h-full">
+            <router-view></router-view>
+        </div>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
 </body>
